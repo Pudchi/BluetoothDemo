@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> device_adapter;
     ArrayList<String> deviceList;
     ListView bt_list;
+    static int scan_status = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scan_status = 1;
                 scan.setVisibility(View.INVISIBLE);
                 stop.setVisibility(View.VISIBLE);
                 box_loading.setVisibility(View.VISIBLE);
@@ -141,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scan_status = 2;
                 stop.setVisibility(View.INVISIBLE);
                 scan.setVisibility(View.VISIBLE);
 
@@ -180,7 +183,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        unregisterReceiver(bt_receiver);
+        if (scan_status == 1)
+        {
+            unregisterReceiver(bt_receiver);
+        }
+
+
     }
 
     private void checkBTPermissions() {
