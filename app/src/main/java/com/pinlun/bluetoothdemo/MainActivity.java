@@ -200,12 +200,13 @@ public class MainActivity extends AppCompatActivity {
                     paired_device_info = pair_device_name + ": " + selected_device_address;
                     final BluetoothDevice pairing = bluetoothAdapter.getRemoteDevice(selected_device_address);
 
+
                     //Toast.makeText(getApplicationContext(), "Connecting: " + pair_device_name, Toast.LENGTH_SHORT).show();
 
 
 
 
-                    System.out.println(selected_device_address);
+                    System.out.println(pairing.getUuids());
 
                     connect_bt.setMessage("Device: " + pair_device_name + "\nHW Address: " + selected_device_address).setTitle("Connect to this device?");
                     connect_bt.setPositiveButton("連接", new DialogInterface.OnClickListener() {
