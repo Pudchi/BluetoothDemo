@@ -34,9 +34,9 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BluetoothSocket btSocket;
+    private static BluetoothSocket btSocket;
     private BluetoothDevice btDevice;
-    private final String TAG = "Connect";
+    private final static String TAG = "Connect";
     public static final String PAIRED_DEVICE_ADDRESS = "PAIRED_DEVICE_ADDRESS";
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     static UUID uuid;
@@ -248,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(stats, "Finish");
 
+                //device_adapter.clear();
                 device_adapter.add(device_name + ": "+device_hw_address);
                 device_adapter.notifyDataSetChanged();
                 box_loading.cancelAnimation();
@@ -268,6 +269,18 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(bt_receiver);
         }
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        //device_adapter.clear();
+        //device_adapter.add("Scan Again!");
+        //device_adapter.notifyDataSetChanged();
+        scan_status = 0;
 
     }
 
@@ -333,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void cancel() {
+    static public void cancel() {
         try {
             btSocket.close();
             Log.d(TAG, "Close socket");

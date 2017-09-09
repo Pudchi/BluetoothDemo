@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,5 +35,14 @@ public class ConnectedActivity extends AppCompatActivity {
         Intent get_paired_info = getIntent();
         String get_info = get_paired_info.getStringExtra(MainActivity.PAIRED_DEVICE_ADDRESS);
         connect_device.setText(get_info.substring(0,get_info.length() - 19) + "\n" + get_info.substring(get_info.length() - 17));
+
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.cancel();
+                startActivity(new Intent(ConnectedActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 }
